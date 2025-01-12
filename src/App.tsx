@@ -10,6 +10,7 @@ import PlaceOrder from './pages/PlaceOrder.tsx';
 import Orders from './pages/Orders.tsx';
 import Navbar from './components/Navbar.tsx';
 import Footer from './components/Footer.tsx';
+import PAssGen from './components/PAssGen.tsx';
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path='/login' element={<Login />} />
         <Route path='/place-order' element={<PlaceOrder />} />
         <Route path='/orders' element={<Orders />} />
+        <Route path='/pass' element={<PAssGen />} />
       </Routes>
       <Footer />
     </div>
