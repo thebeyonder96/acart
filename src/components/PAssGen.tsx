@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from "react";
 
 const PAssGen = () => {
   const [password, setPassword] = useState("");
@@ -6,9 +6,9 @@ const PAssGen = () => {
   const [number, setNumber] = useState(false);
   const [character, setCharacter] = useState(false);
 
-  const passRef = useRef<HTMLInputElement | null>(null)
+  const passRef = useRef<HTMLInputElement | null>(null);
 
-  const generatePassword = () => {
+  const generatePassword = useCallback(() => {
     let pass = "";
     let passValue = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
     if (number) passValue += "1234567890";
@@ -18,14 +18,14 @@ const PAssGen = () => {
       pass += passValue.charAt(char);
     }
     setPassword(pass);
-  };
+  }, [length, number, character]);
 
-  const copyPass = ()=>{
-    window.navigator.clipboard.writeText(password)
-    if(passRef.current){
-        passRef.current.select()
+  const copyPass = () => {
+    window.navigator.clipboard.writeText(password);
+    if (passRef.current) {
+      passRef.current.select();
     }
-  }
+  };
 
   useEffect(() => {
     generatePassword();
@@ -48,7 +48,10 @@ const PAssGen = () => {
               setPassword(e.target.value)
             }
           />
-          <button onClick={copyPass} className="px-2 py-1 rounded-r bg-teal-600 text-white font-semibold">
+          <button
+            onClick={copyPass}
+            className="px-2 py-1 rounded-r bg-teal-600 text-white font-semibold"
+          >
             Copy
           </button>
         </div>
