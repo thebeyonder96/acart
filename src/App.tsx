@@ -10,11 +10,15 @@ import PlaceOrder from './pages/PlaceOrder.tsx';
 import Orders from './pages/Orders.tsx';
 import Navbar from './components/Navbar.tsx';
 import Footer from './components/Footer.tsx';
+import SearchBar from './components/SearchBar.tsx';
+import { ToastContainer, Zoom, toast } from 'react-toastify';
 
 const App = () => {
   return (
     <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
+      <ToastContainer theme="colored" transition={Zoom} autoClose={3000} />
       <Navbar />
+      <SearchBar />
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/collection' element={<Collection />} />

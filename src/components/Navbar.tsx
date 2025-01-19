@@ -1,9 +1,13 @@
 import { Link, NavLink } from 'react-router-dom';
 import { assets } from '../assets/assets';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { ShopContext } from '../context/ShopContext';
 
 const Navbar = () => {
     const [isVisible, setIsvisible] = useState(false);
+    const { setShowSearch, getCartCount } =
+    useContext(ShopContext) ?? {};
+
     return (
         <div className='flex items-center justify-between py-5 font-medium'>
             {/* Logo */}
@@ -31,7 +35,7 @@ const Navbar = () => {
             </ul>
             {/* Accessibility */}
             <div className='flex items-center gap-6'>
-                <img src={assets.search_icon} className='w-5 cursor-pointer' alt="" />
+                <img onClick={()=> setShowSearch && setShowSearch(true)} src={assets.search_icon} className='w-5 cursor-pointer' alt="" />
                 <div className='group relative'>
                     <img src={assets.profile_icon} className='w-5 cursor-pointer' alt="" />
                     <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
@@ -44,7 +48,7 @@ const Navbar = () => {
                 </div>
                 <Link to='/cart' className='relative'>
                     <img src={assets.cart_icon} className='w-5 min-w-5' alt="" />
-                    <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-teal-300 text-black aspect-square rounded-full text-[11px]'>5</p>
+                    <p className='absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-teal-300 text-black aspect-square rounded-full text-[11px]'>{getCartCount()}</p>
                 </Link>
                 <img onClick={() => setIsvisible(true)} src={assets.menu_icon} className='w-5 cursor-pointer sm:hidden' alt="" />
             </div>
