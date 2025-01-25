@@ -6,6 +6,9 @@
 
 *{
     font-family: "Noto Sans";
+    transition: all;
+    transition-duration: .5s;
+    transition: color .7s;
 }
 
 a.active hr{

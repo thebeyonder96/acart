@@ -11,7 +11,7 @@ import Orders from './pages/Orders.tsx';
 import Navbar from './components/Navbar.tsx';
 import Footer from './components/Footer.tsx';
 import SearchBar from './components/SearchBar.tsx';
-import { ToastContainer, Zoom, toast } from 'react-toastify';
+import { ToastContainer, Zoom } from 'react-toastify';
 
 const App = () => {
   return (

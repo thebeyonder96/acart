@@ -1,16 +1,16 @@
 import { createContext, useEffect, useState } from "react";
 import { products } from '../assets/assets';
-import { ShopContextProviderProps, ShopContextType } from "../configs/types";
+import { Cart, ShopContextProviderProps, ShopContextType } from "../configs/types";
 import { toast } from "react-toastify";
 
 export const ShopContext = createContext<ShopContextType | null>(null);
 
 const ShopContextProvider = (props:ShopContextProviderProps) => {
     const currency = '$';
-    const delivery_fee = 100;
+    const delivery_fee = 50;
     const [search,setSearch] = useState('')
     const [showSearch,setShowSearch] = useState(false)
-    const [cart,setCart] = useState<any>({})
+    const [cart,setCart] = useState<Cart>({})
 
     const addToCart = async (itemId:string,size:string)=>{
         if(!size) return toast.error('Select product size')
@@ -44,8 +44,34 @@ const ShopContextProvider = (props:ShopContextProviderProps) => {
         return count
     }
 
+    const updateCartQuantity = async (itemId:string,size:string,quantity:number)=>{
+        let tempCart = structuredClone(cart);
+        tempCart[itemId][size] = quantity
+        setCart(tempCart)
+    }
+
+    const getCartAmount = ()=>{
+        // debugger
+        let totalAmount = 0;
+        console.log(cart)
+        for(const items in cart){
+            const productInfo = products.find(product=> product._id === items)
+            for(const item in cart[items]){
+                try {
+                    if(cart[items][item] > 0){
+                        totalAmount += (productInfo?.price ?? 1) * cart[items][item]
+                    }
+                } catch (error) {
+                    
+                }
+            }
+        }
+        return totalAmount
+    }
+
     useEffect(()=>{
-        
+        // console.log(cart)
+        getCartAmount()
     },[cart])
     const value = {
         products,
@@ -57,7 +83,9 @@ const ShopContextProvider = (props:ShopContextProviderProps) => {
         setShowSearch,
         cart,
         addToCart,
-        getCartCount
+        getCartCount,
+        updateCartQuantity,
+        getCartAmount
     };
     return (
         <ShopContext.Provider value={value}>

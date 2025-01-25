@@ -10,7 +10,9 @@ export interface ShopContextType {
   setShowSearch: Dispatch<SetStateAction<boolean>>;
   cart: any,
   addToCart: any
-  getCartCount: any
+  getCartCount: ()=> number;
+  updateCartQuantity:any;
+  getCartAmount: any
 }
 
 export interface ShopContextProviderProps {
@@ -30,4 +32,12 @@ export type Product = {
 };
 
 export type InputEvent = ChangeEvent<HTMLInputElement>;
+export type InputChangeEvent = ChangeEvent<HTMLInputElement>
 export type SelectEvent = ChangeEvent<HTMLSelectElement>;
+
+
+export type Cart = {
+  [key:string] : {
+    [subKey:string] : number
+  }
+}
