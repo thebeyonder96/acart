@@ -15,7 +15,7 @@ import { ToastContainer, Zoom } from 'react-toastify';
 
 const App = () => {
   return (
-    <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw]'>
+    <div className='px-4 sm:px-[5vw] md:px-[7vw] lg:px-[9vw] dark:bg-black'>
       <ToastContainer theme="colored" transition={Zoom} autoClose={3000} />
       <Navbar />
       <SearchBar />

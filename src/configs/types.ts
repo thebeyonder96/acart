@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, ReactNode, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, MouseEvent, ReactNode, SetStateAction } from "react";
 
 export interface ShopContextType {
   products: Product[];
@@ -34,6 +34,7 @@ export type Product = {
 export type InputEvent = ChangeEvent<HTMLInputElement>;
 export type InputChangeEvent = ChangeEvent<HTMLInputElement>
 export type SelectEvent = ChangeEvent<HTMLSelectElement>;
+export type ButtonEvent = MouseEvent<HTMLButtonElement>
 
 
 export type Cart = {

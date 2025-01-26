@@ -175,13 +175,13 @@ const Collection = () => {
           <Title text1="All" text2="Collections" />
           <select
           onChange={(e:SelectEvent)=> setSortType(e.target.value)}
-            className="border border-gray-300 px-2 text-xs outline-none rounded"
+            className="border border-gray-300 px-4 text-xs outline-none rounded"
             name="Sort"
             id=""
           >
             <option value="relevance">Sort by: Relevance</option>
-            <option value="high-low">Sort by: High-To-Low</option>
-            <option value="low-high">Sort by: Low-To-High</option>
+            <option value="high-low">Sort by: Price (High-To-Low)</option>
+            <option value="low-high">Sort by: Price (Low-To-High)</option>
           </select>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">

@@ -51,9 +51,7 @@ const ShopContextProvider = (props:ShopContextProviderProps) => {
     }
 
     const getCartAmount = ()=>{
-        // debugger
         let totalAmount = 0;
-        console.log(cart)
         for(const items in cart){
             const productInfo = products.find(product=> product._id === items)
             for(const item in cart[items]){
@@ -70,7 +68,6 @@ const ShopContextProvider = (props:ShopContextProviderProps) => {
     }
 
     useEffect(()=>{
-        // console.log(cart)
         getCartAmount()
     },[cart])
     const value = {

@@ -8,7 +8,8 @@
     font-family: "Noto Sans";
     transition: all;
     transition-duration: .5s;
-    transition: color .7s;
+    scroll-behavior: smooth;
+    /* transition: color .7s; */
 }
 
 a.active hr{
@@ -27,4 +28,11 @@ a.active hr{
     a.active{
         @apply bg-black text-white
     }
+}
+
+.btn-default{
+    @apply bg-black text-white px-8 py-3 my-8 rounded shadow
+}
+.btn-white{
+    @apply bg-white text-black border-gray-300 border px-8 py-3 my-8 rounded shadow
 }
