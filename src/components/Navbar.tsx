@@ -7,10 +7,34 @@ const Navbar = () => {
     const [isVisible, setIsvisible] = useState(false);
     const { setShowSearch, getCartCount } =
     useContext(ShopContext) ?? {};
+    const [isLogged,setIsLogged] = useState(false)
+
+    const logOut = ()=>{
+        localStorage.removeItem('ua')
+        setIsLogged(false)
+    }
 
     useEffect(()=>{
         // document.body.classList.add('dark')
+        const USER_NAME = localStorage.getItem('ua');
+        console.log(USER_NAME)
+        if(USER_NAME) setIsLogged(true)
     },[])
+
+    useEffect(() => {
+        // Subscribe to storage changes
+         const handleStorageChange = () => {
+             checkLoginStatus();
+         };
+ 
+         window.addEventListener('storage', handleStorageChange);
+         return () => window.removeEventListener('storage', handleStorageChange);
+     }, []); 
+
+     const checkLoginStatus = () => {
+        const USER_NAME = localStorage.getItem('ua');
+        setIsLogged(!!USER_NAME); // Use !! to convert to boolean
+    };
 
     return (
         <div className='flex items-center justify-between py-5 font-medium'>
@@ -41,14 +65,14 @@ const Navbar = () => {
             <div className='flex items-center gap-6'>
                 <img onClick={()=> setShowSearch && setShowSearch(true)} src={assets.search_icon} className='w-5 cursor-pointer' alt="" />
                 <div className='group relative'>
-                    <Link to={'/login'}><img src={assets.profile_icon} className='w-5 cursor-pointer' alt="" /></Link>
-                    <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
+                    <Link to={isLogged ? '/': '/login'}><img src={assets.profile_icon} className='w-5 cursor-pointer' alt="" /></Link>
+                    {isLogged && <div className='group-hover:block hidden absolute dropdown-menu right-0 pt-4'>
                         <div className='flex flex-col gap-2 w-36 py-3 px-5 bg-slate-100 text-gray-500 rounded'>
                             <p className='hover:text-black cursor-pointer'>Profile</p>
                             <p className='hover:text-black cursor-pointer'>Orders</p>
-                            <p className='hover:text-black cursor-pointer'>Logout</p>
+                            <p onClick={()=> logOut()} className='hover:text-black cursor-pointer'>Logout</p>
                         </div>
-                    </div>
+                    </div>}
                 </div>
                 <Link to='/cart' className='relative'>
                     <img src={assets.cart_icon} className='w-5 min-w-5' alt="" />
