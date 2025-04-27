@@ -10,10 +10,7 @@ const Footer = () => {
             <p className='logo-font text-2xl'>lello</p>
             </div>
           <p className="w-full md:w-2/3 text-gray-700">
-            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-            Repudiandae delectus aperiam quos ex, consequatur quam nisi aliquid
-            adipisci magnam saepe dolore tenetur voluptates deserunt dolorum,
-            tempore non et neque provident?
+          Lello is a modern e-commerce brand built to inspire confidence through curated products that blend design, quality, and everyday ease. From fashion to lifestyle essentials, Lello offers thoughtfully selected collections that elevate your everyday — without the hassle. We believe shopping should be seamless, beautiful, and a little bit joyful.
           </p>
         </div>
 
