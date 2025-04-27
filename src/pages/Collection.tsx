@@ -1,17 +1,18 @@
-import {  useContext, useEffect, useState } from "react";
-import { ShopContext } from "../context/ShopContext";
-import { assets } from "../assets/assets";
+import {  useEffect, useState } from "react";
+import { assets, products } from "../assets/assets";
 import Title from "../components/Title";
 import { InputEvent, Product, SelectEvent } from "../configs/types";
 import ProductItem from "../components/ProductItem";
+import { useAtom } from "jotai";
+import { searchAtom } from "../store/cart.atom";
 
 const Collection = () => {
-  const { products,search,showSearch } = useContext(ShopContext) ?? {};
   const [showFilter, setShowFilter] = useState(false);
   const [filteredProduct, setFilteredProduct] = useState<Product[] | null>([]);
   const [category, setCategory] = useState<string[]>([]);
   const [subCategory, setSubCategory] = useState<string[]>([]);
   const [sortType,setSortType] = useState('relevant')
+  const [search,showSearch ] = useAtom(searchAtom)
 
   const toggleCategory = (e: InputEvent) => {
     const VALUE = e.target.value;
@@ -33,7 +34,7 @@ const Collection = () => {
 
   const applyFilter = () => {
     let productsCopy = products?.slice() ?? [];
-    if(showSearch && search){
+    if(search){
       productsCopy = productsCopy?.filter(item=> item.name.toLowerCase().includes(search.toLowerCase()))
     }
     if (category.length > 0) {

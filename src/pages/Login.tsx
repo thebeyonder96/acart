@@ -2,24 +2,26 @@ import { useState } from "react";
 import { ButtonEvent, InputEvent } from "../configs/types";
 import axios, { AxiosError } from "axios";
 import { API_URL } from "../configs/constants";
-import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+import { useAtom } from "jotai";
+import { userAtom } from "../store/user.atom";
 
 const Login = () => {
   const [currentState, setCurrentState] = useState("Sign Up");
   const [data, setData] = useState({
-    name: "",
-    userName: "",
+    email: "",
     password: "",
   });
   const navigate = useNavigate()
+  const [_,setUser] = useAtom(userAtom)
 
   const onSubmit = async (e: ButtonEvent) => {
     e.preventDefault();
-    if(!data.userName && !data.password) return
+    if(!data.email && !data.password) return
     if (currentState === "Sign Up") {
       try {
-        const response = await axios.post(`${API_URL}/register`, data);
+        const response = await axios.post(`${API_URL}/auth/register`, data);
         if (response.status === 200) {
           if (response.data.userName) setCurrentState("Login");
         }
@@ -38,12 +40,14 @@ const Login = () => {
       }
     }else{
       try {
-        const response = await axios.post(`${API_URL}/login`, data);
+        const response = await axios.post(`${API_URL}/auth/login`, data);
+        console.log(response)
         if (response.status === 200) {
-          if (response.data.userName) {
-            toast.info('Successfully logged in');
+          if (response.data.user.id) {
+            toast.success('Successfully logged in');
             navigate('/')
-            localStorage.setItem('ua',response.data.userName)
+            localStorage.setItem('ua',response.data.user.id)
+            setUser(response.data.user.id)
           }
         }
       } catch (error) {
@@ -72,27 +76,16 @@ const Login = () => {
         <p className="text-3xl">{currentState}</p>
         {/* <hr className="border-none bg-gray-800 h-[1.5px] w-8" /> */}
       </div>
-      {currentState === "Sign Up" && (
-        <input
-          onChange={handleChange}
-          value={data.name}
-          className="w-full px-3 py-2 border border-gray-700 rounded"
-          placeholder="Name"
-          type="text"
-          required
-          name="name"
-          id="name"
-        />
-      )}
+      
       <input
         onChange={handleChange}
-        value={data.userName}
+        value={data.email}
         className="w-full px-3 py-2 border border-gray-700 rounded"
         placeholder="User Name"
-        type="userName"
+        type="email"
         required
-        name="userName"
-        id="userName"
+        name="email"
+        id="email"
       />
       <input
         onChange={handleChange}

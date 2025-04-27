@@ -1,12 +1,13 @@
-import { useContext, useEffect, useState } from "react";
-import { ShopContext } from "../context/ShopContext";
+import { useEffect, useState } from "react";
 import { InputEvent } from "../configs/types";
 import { assets } from "../assets/assets";
 import { useLocation } from "react-router-dom";
+import { useAtom } from "jotai";
+import { searchAtom, showSearchAtom } from "../store/cart.atom";
 
 const SearchBar = () => {
-  const { search, setSearch, showSearch, setShowSearch } =
-    useContext(ShopContext) ?? {};
+    const [search, setSearch] = useAtom(searchAtom)
+    const [showSearch, setShowSearch] = useAtom(showSearchAtom)
     const [visible,setVisible] = useState(false)
 
     const location = useLocation()

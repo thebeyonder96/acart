@@ -1,15 +1,14 @@
-import { useContext, useEffect, useState } from "react";
-import { ShopContext } from "../context/ShopContext";
+import { useEffect, useState } from "react";
 import { Product } from "../configs/types";
 import Title from "./Title";
 import ProductItem from "./ProductItem";
+import { products } from "../assets/assets";
 
 type Related = {
     category:string
     subCategory:string
 }
 const RelatedProducts = ({category,subCategory}:Related) => {
-    const { products } = useContext(ShopContext) ?? {};
     const [related,setRelated] = useState<Product[]>([])
 
     useEffect(()=>{

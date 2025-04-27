@@ -1,11 +1,10 @@
-import  { useContext, useEffect, useState } from 'react'
-import { ShopContext } from '../context/ShopContext';
+import  { useEffect, useState } from 'react'
 import { Product } from '../configs/types';
 import Title from './Title';
 import ProductItem from './ProductItem';
+import { products } from '../assets/assets';
 
 const BestSeller = () => {
-    const {products} = useContext(ShopContext) ?? {}
     const [bestSeller,setBestSeller] = useState<Product[]>([])
     useEffect(()=>{
         const bestSellers = products?.filter(product=> product.bestseller = true).slice(0,5)

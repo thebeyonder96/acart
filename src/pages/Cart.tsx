@@ -1,10 +1,12 @@
-import { useContext, useEffect, useState } from "react";
-import { ShopContext } from "../context/ShopContext";
+import {  useEffect, useState } from "react";
 import { InputChangeEvent, type Cart } from "../configs/types";
 import Title from "../components/Title";
-import { assets } from "../assets/assets";
+import { assets, products } from "../assets/assets";
 import CartTotal from "../components/CartTotal";
 import { useNavigate } from "react-router-dom";
+import { cartAtom, currencyAtom } from "../store/cart.atom";
+import { useAtom } from "jotai";
+import { useCartActions } from "../hooks/cart.hook";
 
 type CartItems = {
   id: string;
@@ -13,9 +15,11 @@ type CartItems = {
 };
 
 const Cart = () => {
-  const { cart, currency, products, updateCartQuantity } = useContext(ShopContext) ?? {};
   const [cartItems, setCartItems] = useState<CartItems[]>([]);
   const navigate = useNavigate()
+  const [cart] = useAtom(cartAtom);
+  const {updateCartQuantity} = useCartActions()
+  const [currency] = useAtom(currencyAtom)
 
   const updateCart = (e:InputChangeEvent,id:string,size:string)=>{
     const quantity = e.target.value

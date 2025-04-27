@@ -1,10 +1,10 @@
-import { useContext } from "react";
-import { ShopContext } from "../context/ShopContext";
 import Title from "../components/Title";
+import { useAtom } from "jotai";
+import { currencyAtom } from "../store/cart.atom";
+import { products } from "../assets/assets";
 
 const Orders = () => {
-  const { currency, products } =
-    useContext(ShopContext) ?? {};
+    const [ currency] = useAtom(currencyAtom)
   return (
     <div className="border-t pt-16">
       <div className="text-2xl">

@@ -1,16 +1,19 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { ShopContext } from "../context/ShopContext";
 import type { Product } from "../configs/types";
-import { assets } from "../assets/assets";
+import { assets, products } from "../assets/assets";
 import RelatedProducts from "../components/RelatedProducts";
+import { useCartActions } from "../hooks/cart.hook";
+import { useAtom } from "jotai";
+import { currencyAtom } from "../store/cart.atom";
 
 const Product = () => {
   const { productID } = useParams();
-  const { products, currency, addToCart } = useContext(ShopContext) ?? {};
   const [productData, setProductData] = useState<Product | null>(null);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
+  const {addToCart} = useCartActions()
+  const [currency] = useAtom(currencyAtom)
 
   const fetchProduct = async () => {
     products &&
